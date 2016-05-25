@@ -14,7 +14,7 @@ static inline struct gonc_stack* gonc_stack_create()
     return calloc(1, sizeof(struct gonc_stack));
 }
 
-static inline int gonc_stack_get_size(struct gonc_stack* stack)
+static inline size_t gonc_stack_get_size(struct gonc_stack* stack)
 {
     return stack->size;
 }
