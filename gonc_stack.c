@@ -27,13 +27,6 @@ int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size)
     return 0;
 }
 
-int gonc_stack_peek(struct gonc_stack* stack, void* data, size_t data_size)
-{
-    memcpy(data, stack->top->data, data_size);
-    return 0;
-}
-
-
 int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size)
 {
     if(stack->size <= 0)

@@ -21,7 +21,10 @@ static inline size_t gonc_stack_get_size(struct gonc_stack* stack)
 
 int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size);
 
-int gonc_stack_peek(struct gonc_stack* stack, void* data, size_t data_size);
+static inline void gonc_stack_peek(struct gonc_stack* stack, void* data, size_t data_size)
+{
+    memcpy(data, stack->top->data, data_size);
+}
 
 int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size);
 
