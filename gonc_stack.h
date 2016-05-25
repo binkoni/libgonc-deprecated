@@ -19,14 +19,11 @@ static inline int gonc_stack_get_size(struct gonc_stack* stack)
     return stack->size;
 }
 
-int gonc_stack_push(struct gonc_stack* stack, void* data);
+int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size);
 
-static inline void* gonc_stack_peek(struct gonc_stack* stack)
-{
-    return stack->top->data;
-}
+int gonc_stack_peek(struct gonc_stack* stack, void* data, size_t data_size);
 
-int gonc_stack_pop(struct gonc_stack* stack, void** output_data);
+int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size);
 
 int gonc_stack_destroy(struct gonc_stack* stack);
 
