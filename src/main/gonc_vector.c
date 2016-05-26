@@ -20,6 +20,11 @@ int gonc_vector_set(struct gonc_vector* vector, size_t index, void* data)
 
 int gonc_vector_append(struct gonc_vector* vector, void* data)
 {
+    if(vector->size >= vector->capacity)
+    {
+        vector->capacity *= 2;
+        vector->array = realloc(vector->array, vector->capacity); 
+    }
     memcpy((char*)(vector->array) + (vector->size * vector->data_size), data, vector->data_size);
     ++(vector->size);
     return 0;
@@ -27,7 +32,17 @@ int gonc_vector_append(struct gonc_vector* vector, void* data)
 
 int gonc_vector_insert(struct gonc_vector* vector, size_t index, void* data)
 {
-//    (char*)(vector->array) + (index * vector->data_size)
+    if(index + 1 >= vector->size || index < 0) return -1;
+    if(vector->size >= vector->capacity)
+    {
+        vector->capacity *= 2;
+        vector->array = realloc(vector->array, vector->capacity);
+    }
+    memmove((char*)(vector->array) + ((index + 1) * vector->data_size),
+         (char*)(vector->array) + (index * vector->data_size),
+         (vector->size - index) * vector->data_size);
+    memcpy((char*)(vector->array) + (index * vector->data_size), data, vector->data_size);
+    ++(vector->size);
     return 0;
 }
 
@@ -40,12 +55,19 @@ int gonc_vector_get(struct gonc_vector* vector, size_t index, void* data)
 
 int gonc_vector_remove(struct gonc_vector* vector, size_t index, void* data)
 {
+    if(index + 1 >= vector->size || index < 0) return -1;
+    memcpy(data, (char*)(vector->array) + (index * vector->data_size), vector->data_size);
+    memmove((char*)(vector->array) + (index * vector->data_size),
+         (char*)(vector->array) + ((index + 1) * vector->data_size),
+         (vector->size - index) * vector->data_size);
+    --(vector->size);
     return 0;
 }
 
-int gonc_vector_destroy(struct gonc_vector* vector)
+int gonc_vector_compact(struct gonc_vector* vector)
 {
-    free(vector->array);
-    free(vector);
-    return 0;
+    vector->capacity = vector->size;
+    vector->array = realloc(vector->array, vector->capacity);
+    if(vector->array != NULL) return 0;
+    else return -1;
 }

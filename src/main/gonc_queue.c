@@ -47,6 +47,5 @@ int gonc_queue_destroy(struct gonc_queue* queue)
         --(queue->size);
     }
     free(queue);
-
     return 0;
 }
