@@ -15,8 +15,15 @@ int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, voi
 
 int gonc_linked_list_insert(struct gonc_linked_list* linked_list, void* data);
 
-int gonc_linked_list_prepend(struct gonc_linked_list* linked_list, void* data);
-int gonc_linked_list_append(struct gonc_linked_list* linked_list, void* data);
+static inline int gonc_linked_list_prepend(struct gonc_linked_list* linked_list, void* data)
+{
+    return gonc_linked_list_insert(linked_list, 0, data);
+}
+
+static inline int gonc_linked_list_append(struct gonc_linked_list* linked_list, void* data)
+{
+    return gonc_linked_list_insert(linked_list, linked_list->size, data);
+}
 
 int gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, void* data);
 

@@ -3,12 +3,12 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "gonc_node.h"
+#include "gonc_singly_linked_node.h"
 
 struct gonc_queue
 {
-    struct gonc_node* front;
-    struct gonc_node* back;
+    struct gonc_singly_linked_node* front;
+    struct gonc_singly_linked_node* back;
     size_t size;
 };
 

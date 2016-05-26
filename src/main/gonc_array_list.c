@@ -47,7 +47,8 @@ int gonc_array_list_get(struct gonc_array_list* array_list, size_t index, void* 
 int gonc_array_list_remove(struct gonc_array_list* array_list, size_t index, void* data)
 {
     if(index > array_list->size || index < 0) return -1;
-    memcpy(data, (char*)(array_list->array) + (index * array_list->data_size), array_list->data_size);
+    if(data != NULL)
+        memcpy(data, (char*)(array_list->array) + (index * array_list->data_size), array_list->data_size);
     if(index < array_list->size)
     {
         memmove((char*)(array_list->array) + (index * array_list->data_size),
