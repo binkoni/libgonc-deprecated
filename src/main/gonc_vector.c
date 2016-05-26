@@ -14,19 +14,26 @@ struct gonc_vector* gonc_vector_create(size_t capacity, size_t data_size)
 
 int gonc_vector_set(struct gonc_vector* vector, size_t index, void* data)
 {
-    if(index >= vector->capacity || index < 0) return -1;
+    if(index >= vector->size || index < 0) return -1;
     memcpy((char*)(vector->array) + (index * vector->data_size), data, vector->data_size);
 }
 
-int gonc_vector_add(struct gonc_vector* vector, size_t index, void* data)
+int gonc_vector_append(struct gonc_vector* vector, void* data)
 {
-    (char*)(vector->array) + (index * vector->data_size)
+    memcpy((char*)(vector->array) + (vector->size * vector->data_size), data, vector->data_size);
+    ++(vector->size);
+    return 0;
+}
+
+int gonc_vector_insert(struct gonc_vector* vector, size_t index, void* data)
+{
+//    (char*)(vector->array) + (index * vector->data_size)
     return 0;
 }
 
 int gonc_vector_get(struct gonc_vector* vector, size_t index, void* data)
 {
-    if(index >= vector->capacity || index < 0) return -1;
+    if(index >= vector->size || index < 0) return -1;
     memcpy(data, (char*)(vector->array) + (index * vector->data_size), vector->data_size);
     return 0;
 }

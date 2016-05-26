@@ -2,6 +2,7 @@
 #define _GONC_QUEUE_H
 
 #include <stdlib.h>
+#include <string.h>
 #include "gonc_node.h"
 
 struct gonc_queue

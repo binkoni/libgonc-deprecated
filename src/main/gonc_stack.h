@@ -2,6 +2,7 @@
 #define _GONC_STACK_H
 
 #include <stdlib.h>
+#include <string.h>
 #include "gonc_node.h"
 
 struct gonc_stack {

@@ -13,7 +13,9 @@ struct gonc_vector
 
 struct gonc_vector* gonc_vector_create(size_t capacity, size_t data_size);
 
-int gonc_vector_add(struct gonc_vector* vector, size_t index, void* data);
+int gonc_vector_append(struct gonc_vector* vector, size_t index, void* data);
+
+int gonc_vector_insert(struct gonc_vector* vector, size_t index, void* data);
 
 int gonc_vector_remove(struct gonc_vector* vector, size_t index, void* data);
 
