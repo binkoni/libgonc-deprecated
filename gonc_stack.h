@@ -1,8 +1,8 @@
+#ifndef _GONC_STACK_H
+#define _GONC_STACK_H
+
 #include <stdlib.h>
 #include "gonc_node.h"
-
-#ifndef GONC_STACK_H
-#define GONC_STACK_H
 
 struct gonc_stack {
     struct gonc_node* top;

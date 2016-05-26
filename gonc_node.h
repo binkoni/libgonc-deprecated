@@ -1,5 +1,5 @@
-#ifndef GONC_NODE_H
-#define GONC_NODE_H
+#ifndef _GONC_NODE_H
+#define _GONC_NODE_H
 
 struct gonc_node
 {

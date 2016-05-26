@@ -1,8 +1,8 @@
+#ifndef _GONC_QUEUE_H
+#define _GONC_QUEUE_H
+
 #include <stdlib.h>
 #include "gonc_node.h"
-
-#ifndef GONC_QUEUE_H
-#define GONC_QUEUE_H
 
 struct gonc_queue
 {
@@ -21,11 +21,14 @@ static inline size_t gonc_queue_get_size(struct gonc_queue* queue)
     return queue->size;
 }
 
-int gonc_queue_push_back(struct gonc_queue* queue, void* data, size_t data_size);
+int gonc_queue_push(struct gonc_queue* queue, void* data, size_t data_size);
 
-int gonc_queue_peek_front(struct gonc_queue* queue, void* data, size_t data_size);
+static inline void gonc_queue_peek(struct gonc_queue* queue, void* data, size_t data_size)
+{
+    memcpy(data, queue->front->data, data_size);
+}
 
-int gonc_queue_pop_front(struct gonc_queue* queue, void* data, size_t data_size);
+int gonc_queue_pop(struct gonc_queue* queue, void* data, size_t data_size);
 
 
 int gonc_queue_destroy(struct gonc_queue* queue);
