@@ -31,9 +31,12 @@ static inline size_t gonc_array_list_get_size(struct gonc_array_list* array_list
 
 int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* data);
 
-int gonc_array_list_append(struct gonc_array_list* array_list, void* data);
-
 int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, void* data);
+
+static inline int gonc_array_list_append(struct gonc_array_list* array_list, void* data)
+{
+    return gonc_array_list_insert(array_list, array_list->size, data);
+}
 
 int gonc_array_list_get(struct gonc_array_list* array_list, size_t index, void* data);
 
