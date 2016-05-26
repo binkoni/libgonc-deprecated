@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "gonc_queue.h"
+#include "../main/gonc_queue.h"
 
 int main()
 {

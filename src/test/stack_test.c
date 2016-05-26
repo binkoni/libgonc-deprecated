@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "gonc_stack.h"
+#include "../main/gonc_stack.h"
 
 int main()
 {

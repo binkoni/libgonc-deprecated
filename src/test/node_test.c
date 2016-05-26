@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "node.h"
+#include "../main/node.h"
 
 int main(int argc, char** argv)
 {

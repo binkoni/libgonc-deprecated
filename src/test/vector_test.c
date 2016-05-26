@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "gonc_vector.h"
+#include "../main/gonc_vector.h"
 
 int main()
 {
