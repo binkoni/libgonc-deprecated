@@ -2,16 +2,22 @@
 #define _GONC_NODE_H
 
 /**
-* @brief use brief, otherwise the index won't have a brief explanation
-*
-* detailed explanation
+* @file gonc_node.h
+* @author Byeonggon Lee
+* @brief This file contains struct gonc_node.
+*/
+
+/**
+* @brief A doubly linked node.
+* A doubly linked node which has previous and next pointer.
+* This struct is used by gonc_stack and gonc_linked_list.
 */
 
 struct gonc_node
 {
-    void* data; /**< some documentation for data */
-    struct gonc_node* previous; /**< some documentation for previous */
-    struct gonc_node* next; /**< some documentation for next */
+    void* data; /**< pointer of data. */
+    struct gonc_node* previous; /**< pointer of previous node. */
+    struct gonc_node* next; /**< pointer of next node. */
 };
 
 #endif
