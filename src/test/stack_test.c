@@ -26,6 +26,8 @@ void test()
     assert_int_equal(p2, 500);
     assert_int_not_equal(gonc_stack_pop(stack, &p2, sizeof(int)), -1);
     assert_int_equal(p2, 400);
+    gonc_stack_peek(stack, &p2, sizeof(int));
+    assert_int_equal(p2, 300);
     assert_int_not_equal(gonc_stack_pop(stack, &p2, sizeof(int)), -1);
     assert_int_equal(p2, 300);
     assert_int_not_equal(gonc_stack_pop(stack, &p2, sizeof(int)), -1);
