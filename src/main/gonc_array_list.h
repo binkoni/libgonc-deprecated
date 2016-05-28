@@ -93,7 +93,7 @@ int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* 
 int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, void* data);
 
 /**
-* @brief Inserts the data to index 0.
+* @brief Inserts the data to last index + 1.
 *
 * @param array_list Pointer of the array_list.
 * @param data Pointer of the data.
@@ -117,11 +117,11 @@ static inline int gonc_array_list_append(struct gonc_array_list* array_list, voi
 int gonc_array_list_get(struct gonc_array_list* array_list, size_t index, void* data);
 
 /**
-* @brief Removes the data to specified index. Elements after the index will be pulled forth.
+* @brief Removes the data to specified index and copies the data to parameter 'data'. Elements after the index will be pulled forth.
 *
 * @param array_list Pointer of the array_list.
 * @param index Index which the data will be removed from.
-* @param data Pointer of the data.
+* @param data Pointer of the data or give it NULL if you don't want.
 * @return 0 if no error, -1 if error.
 */
 

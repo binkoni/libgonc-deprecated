@@ -14,6 +14,7 @@
 /**
 * @brief A linked list based queue.
 * Because this queue is linked list based, you don't have to worry about the capacity.
+* This doesn't use struct gonc_linked_list.
 */
 
 struct gonc_queue

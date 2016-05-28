@@ -14,6 +14,7 @@
 /**
 * @brief A linked list based stack.
 * Because this stack is linked list based, you don't have to worry about the capacity.
+* But this doesn't use struct gonc_linked_list.
 */
 
 struct gonc_stack {
