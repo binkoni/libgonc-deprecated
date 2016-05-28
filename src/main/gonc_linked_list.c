@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "gonc_linked_list.h"
 #include "gonc_node.h"
 
@@ -10,7 +12,7 @@ int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, voi
     return 0;
 }
 
-int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, void* data, size_t dzta_size)
+int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size)
 {
     struct gonc_node* current_node = linked_list->node;
     for(int i = 0; i < index; i++)
@@ -51,7 +53,7 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index, 
 
 int gonc_linked_list_destroy(struct gonc_linked_list* linked_list)
 {
-    struct gonc_node target_node;
+    struct gonc_node* target_node;
     while((target_node = linked_list->node) != NULL)
     {
         linked_list->node = linked_list->node->next;
@@ -61,3 +63,4 @@ int gonc_linked_list_destroy(struct gonc_linked_list* linked_list)
     free(linked_list);
     return 0;
 }
+
