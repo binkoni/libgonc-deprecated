@@ -10,6 +10,7 @@ void test()
     assert_ptr_not_equal(linked_list, NULL);
     int p1 = 100;
     assert_int_not_equal(gonc_linked_list_append(linked_list, &p1, sizeof(int)), -1);
+
     p1 = 200;
     assert_int_not_equal(gonc_linked_list_append(linked_list, &p1, sizeof(int)), -1);
     p1 = 300;
