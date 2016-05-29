@@ -86,9 +86,13 @@ int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size);
 * @brief Destroys the stack.
 * This function destroys the stack and frees the memory.
 * @param stack Pointer of the stack.
-* @return 0 if no error, -1 if error.
 */
 
-int gonc_stack_destroy(struct gonc_stack* stack);
+static inline void gonc_stack_destroy(struct gonc_stack* stack)
+{
+    while(gonc_stack_pop(stack, NULL, 0) == 0)
+        ;
+    free(stack);
+}
 
 #endif
