@@ -81,6 +81,20 @@ int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* 
 int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size);
 
 /**
+* @brief Inserts the data to index 0.
+*
+* @param array_list Pointer of the array_list.
+* @param data Pointer of the data.
+* @param data_size Size of the data.
+* @return 0 if no error, -1 if error.
+*/
+
+static inline int gonc_array_list_prepend(struct gonc_array_list* array_list, void* data, size_t data_size)
+{
+    return gonc_array_list_insert(array_list, 0, data, data_size);
+}
+
+/**
 * @brief Inserts the data to last index + 1.
 *
 * @param array_list Pointer of the array_list.

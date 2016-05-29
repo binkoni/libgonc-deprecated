@@ -113,7 +113,6 @@ void append_and_remove_test()
     gonc_linked_list_destroy(linked_list);
 }
 
-
 int main()
 {
     struct CMUnitTest tests[] = {
