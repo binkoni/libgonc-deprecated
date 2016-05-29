@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS=-O3 -s
-TESTCFLAGS=-O3 -g
+CFLAGS=-O3 -s -Wall
+TESTCFLAGS=-O3 -g -Wall
 #LDFLAGS
 .PHONY : clean
 .DEFAULT : all
@@ -8,6 +8,7 @@ all : main test
 main : 
 	mkdir -p build
 	mkdir -p build/main
+	$(CC) $(CFLAGS) -shared -fPIC src/main/*.c -o build/main/libgonc.so
 test : 
 	mkdir -p build
 	mkdir -p build/test

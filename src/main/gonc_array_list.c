@@ -17,6 +17,7 @@ int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* 
 
     *(array_list->array + index) = malloc(data_size);
     memcpy(*(array_list->array + index), data, data_size);
+    return 0;
 }
 
 int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size)
