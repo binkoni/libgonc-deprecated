@@ -128,6 +128,11 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index, 
 * @param Pointer of the linked_list.
 */
 
-int gonc_linked_list_destroy(struct gonc_linked_list* linked_list);
+static inline void gonc_linked_list_destroy(struct gonc_linked_list* linked_list)
+{
+    while(gonc_linked_list_remove(linked_list, 0, NULL, 0) == 0)
+        ;
+    free(linked_list);
+}
 
 #endif

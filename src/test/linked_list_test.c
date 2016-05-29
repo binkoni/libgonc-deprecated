@@ -52,6 +52,7 @@ void test()
     assert_int_equal(p2, 500);
 
     gonc_linked_list_destroy(linked_list);
+
 }
 
 int main()
