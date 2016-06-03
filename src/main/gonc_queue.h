@@ -1,6 +1,10 @@
 #ifndef _GONC_QUEUE_H
 #define _GONC_QUEUE_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include "gonc_singly_linked_node.h"

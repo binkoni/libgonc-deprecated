@@ -1,6 +1,10 @@
 #ifndef _GONC_LINKED_LIST_H
 #define _GONC_LINKED_LIST_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdlib.h>
 #include "gonc_node.h"
 
