@@ -13,7 +13,7 @@ AC_CONFIG_FILES([Makefile src/Makefile src/main/Makefile])
 
 # Checks for programs.
 AC_PROG_CC
-AC_PRIC_STDC
+AC_PROG_CC_STDC
 
 # Checks for libraries.
 
