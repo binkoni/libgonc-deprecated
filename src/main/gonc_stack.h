@@ -105,16 +105,6 @@ struct gonc_entry* gonc_stack_pop(struct gonc_stack* stack);
 * @param stack Pointer of the stack.
 */
 
-static inline void gonc_stack_destroy(struct gonc_stack* stack)
-{
-    for(int i = 0; i < stack->size; i++)
-    {
-        gonc_entry_destroy(stack->top->entry);
-        struct gonc_node* old_top = stack->top;
-        stack->top = stack->top->previous;
-        free(old_top);
-    }
-    free(stack);
-}
+void gonc_stack_destroy(struct gonc_stack* stack);
 
 #endif
