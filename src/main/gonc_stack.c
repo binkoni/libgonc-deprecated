@@ -22,8 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "gonc_stack.h"
+#include "gonc_entry.h"
 
-int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size)
+int gonc_stack_push(struct gonc_stack* stack, struct gonc_entry* entry)
 {
     if(stack->size > 0)
     {
@@ -40,23 +41,21 @@ int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size)
         return -1;
     }
 
-    stack->top->data = malloc(data_size);
-    memcpy(stack->top->data, data, data_size);
+    stack->top->entry = entry;
     ++(stack->size);
 
     return 0;
 }
 
-int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size)
+struct gonc_entry* gonc_stack_pop(struct gonc_stack* stack)
 {
-    if(stack->size <= 0) return -1;
+    if(stack->size <= 0) return NULL;
 
-    if(data != NULL)
-        memcpy(data, stack->top->data, data_size);
     struct gonc_node* old_top = stack->top;
     stack->top = stack->top->previous;
-    free(old_top->data);
+    struct gonc_entry* old_entry = old_top->entry;
     free(old_top);
     --(stack->size);
-    return 0;
+    
+    return old_entry;
 }
