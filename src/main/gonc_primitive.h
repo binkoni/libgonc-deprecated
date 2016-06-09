@@ -32,7 +32,7 @@ static inline gonc_primitive_destroy(struct gonc_primitive* primitive)
     free(primitive);
 }
 
-static inline gonc_entry* gonc_entry_copy_primitive(struct gonc_entry* entry)
+static inline gonc_entry* gonc_primitive_copy_entry(struct gonc_entry* entry)
 {
     struct gonc_entry* new_entry = malloc(sizeof(struct gonc_entry));
     new_entry->primitive = malloc(sizeof(struct gonc_primitive));
@@ -43,7 +43,7 @@ static inline gonc_entry* gonc_entry_copy_primitive(struct gonc_entry* entry)
     new_entry->destroy = gonc_entry_destroy_primitive;
 }
 
-static inline void gonc_entry_destroy_primitive(struct gonc_entry* entry)
+static inline void gonc_primitive_destroy_entry(struct gonc_entry* entry)
 {
     gonc_primitive_destroy(entry->primitive);
     free(entry);

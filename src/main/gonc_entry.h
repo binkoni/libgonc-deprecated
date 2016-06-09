@@ -19,8 +19,8 @@ static inline struct gonc_entry* gonc_entry_create_primitive(struct gonc_primiti
 {
     struct gonc_entry* entry = malloc(sizeof(struct gonc_entry));
     entry->primitive = primitive;
-    entry->copy = gonc_entry_copy_primitive;
-    entry->destroy = gonc_entry_destroy_primitive;
+    entry->copy = gonc_primitive_copy_entry;
+    entry->destroy = gonc_primitive_destroy_entry;
     return entry;
 }
 
