@@ -18,6 +18,7 @@
 #ifndef _GONC_NODE_H
 #define _GONC_NODE_H
 
+#include "gonc_entry.h"
 /**
 * @file gonc_node.h
 * @author Byeonggon Lee
@@ -32,7 +33,7 @@
 
 struct gonc_node
 {
-    void* data; /**< pointer of data. */
+    struct gonc_entry* entry; /**< pointer of entry. */
     struct gonc_node* previous; /**< pointer of previous node. */
     struct gonc_node* next; /**< pointer of next node. */
 };
