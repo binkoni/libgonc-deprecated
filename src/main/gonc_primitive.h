@@ -2,6 +2,7 @@
 #define _GONC_PRIMITIVE_H
 
 #include <stdlib.h>
+#include "gonc_entry.h"
 
 struct gonc_primitive
 {
@@ -30,5 +31,23 @@ static inline gonc_primitive_destroy(struct gonc_primitive* primitive)
     free(primitive->data);
     free(primitive);
 }
+
+static inline gonc_entry* gonc_entry_copy_primitive(struct gonc_entry* entry)
+{
+    struct gonc_entry* new_entry = malloc(sizeof(struct gonc_entry));
+    new_entry->primitive = malloc(sizeof(struct gonc_primitive));
+    new_entry->primitive->data = malloc(entry->primitive->data_size);
+    memcpy(new_entry->primitive->data, entry->primitive->data, entry->primitive->data_size);
+    new_entry->primitive->data_size = entry->primitive->data_size;
+    new_entry->copy = gonc_entry_copy_primitive;
+    new_entry->destroy = gonc_entry_destroy_primitive;
+}
+
+static inline void gonc_entry_destroy_primitive(struct gonc_entry* entry)
+{
+    gonc_primitive_destroy(entry->primitive);
+    free(entry);
+}
+
 
 #endif
