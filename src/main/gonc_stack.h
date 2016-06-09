@@ -73,7 +73,7 @@ static inline size_t gonc_stack_get_size(struct gonc_stack* stack)
 * @brief Pushs data to the stack.
 * Pushes data to the stack.
 * @param stack Pointer of the stack.
-* @param data Pointer of the data to push.
+* @param entry Pointer of the entry to push.
 * @return 0 if no error, -1 if error.
 */
 
@@ -83,7 +83,6 @@ int gonc_stack_push(struct gonc_stack* stack, struct gonc_entry* entry);
 * @brief Copies topmost data of the stack to parameter 'data'.
 * This is an inline function and simply copies topmost data of the stack to parameter 'data'.
 * @param stack Pointer of the stack.
-* @param data Pointer of the output data.
 */
 
 static inline struct gonc_entry* gonc_stack_peek(struct gonc_stack* stack)
@@ -95,7 +94,6 @@ static inline struct gonc_entry* gonc_stack_peek(struct gonc_stack* stack)
 * @brief Pops data to parameter 'data'.
 * This function pops data from the stack and copies to parameter 'data'
 * @param stack Pointer of the stack.
-* @param data Pointer of the output data.
 * @return 0 if no error, -1 if error.
 */
 
@@ -109,8 +107,13 @@ struct gonc_entry* gonc_stack_pop(struct gonc_stack* stack);
 
 static inline void gonc_stack_destroy(struct gonc_stack* stack)
 {
-    while(gonc_stack_pop(stack, NULL, 0) != NULL)
-        ;
+    for(int i = 0; i < stack->size; i++)
+    {
+        gonc_entry_destroy(stack->top->entry);
+        struct gonc_node* old_top = stack->top;
+        stack->top = stack->top->previous;
+        free(old_top);
+    }
     free(stack);
 }
 
