@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "gonc_node.h"
+#include "gonc_entry.h"
 
 /**
 * @file gonc_stack.h
@@ -73,23 +74,21 @@ static inline size_t gonc_stack_get_size(struct gonc_stack* stack)
 * Pushes data to the stack.
 * @param stack Pointer of the stack.
 * @param data Pointer of the data to push.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_stack_push(struct gonc_stack* stack, void* data, size_t data_size);
+int gonc_stack_push(struct gonc_stack* stack, struct gonc_entry* entry);
 
 /**
 * @brief Copies topmost data of the stack to parameter 'data'.
 * This is an inline function and simply copies topmost data of the stack to parameter 'data'.
 * @param stack Pointer of the stack.
 * @param data Pointer of the output data.
-* @param data_size Size of the data.
 */
 
-static inline void gonc_stack_peek(struct gonc_stack* stack, void* data, size_t data_size)
+static inline struct gonc_entry* gonc_stack_peek(struct gonc_stack* stack)
 {
-    memcpy(data, stack->top->data, data_size);
+    return stack->top->entry;
 }
 
 /**
@@ -97,11 +96,10 @@ static inline void gonc_stack_peek(struct gonc_stack* stack, void* data, size_t 
 * This function pops data from the stack and copies to parameter 'data'
 * @param stack Pointer of the stack.
 * @param data Pointer of the output data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size);
+struct gonc_entry* gonc_stack_pop(struct gonc_stack* stack);
 
 /**
 * @brief Destroys the stack.
@@ -111,7 +109,7 @@ int gonc_stack_pop(struct gonc_stack* stack, void* data, size_t data_size);
 
 static inline void gonc_stack_destroy(struct gonc_stack* stack)
 {
-    while(gonc_stack_pop(stack, NULL, 0) == 0)
+    while(gonc_stack_pop(stack, NULL, 0) != NULL)
         ;
     free(stack);
 }
