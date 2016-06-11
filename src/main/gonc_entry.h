@@ -15,34 +15,21 @@ struct gonc_entry
     void (*destroy)(struct gonc_entry*);
 };
 
-static inline struct gonc_entry* gonc_entry_create_primitive(struct gonc_primitive* primitive)
-{
-    struct gonc_entry* entry = malloc(sizeof(struct gonc_entry));
-    entry->primitive = primitive;
-    entry->copy = gonc_primitive_copy_entry;
-    entry->destroy = gonc_primitive_destroy_entry;
-    return entry;
-}
 
-static inline struct gonc_entry* gonc_entry_create_complex(void* complex,
+struct gonc_entry* gonc_entry_create_primitive(struct gonc_primitive* primitive);
+
+struct gonc_entry* gonc_entry_create_complex(void* complex,
                                                        struct gonc_entry* (*copy)(struct gonc_entry*),
-                                                       void (*destroy)(struct gonc_entry*))
-{
-    struct gonc_entry* entry = malloc(sizeof(struct gonc_entry));
-    entry->complex = complex;
-    entry->copy = copy;
-    entry->destroy = destroy;
-    return entry;
-}
+                                                       void (*destroy)(struct gonc_entry*));
 
 static inline struct gonc_entry* gonc_entry_copy(struct gonc_entry* entry)
 {
     return entry->copy(entry);
 }
 
-statir inline void gonc_entry_destroy(struct gonc_entry* entry)
+static inline void gonc_entry_destroy(struct gonc_entry* entry)
 {
-    entry->destroy();
+    entry->destroy(entry);
 }
 
 #endif
