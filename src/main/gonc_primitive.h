@@ -1,9 +1,6 @@
 #ifndef _GONC_PRIMITIVE_H
 #define _GONC_PRIMITIVE_H
 
-#include <stdlib.h>
-#include <string.h>
-
 struct gonc_primitive
 {
     void* data;

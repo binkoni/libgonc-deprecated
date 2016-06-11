@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
+#include "gonc_primitive.h"
+#include "gonc_entry.h"
 
 struct gonc_primitive* gonc_primitive_create(void* data, size_t data_size)
 {
@@ -30,8 +32,8 @@ struct gonc_entry* gonc_primitive_copy_entry(struct gonc_entry* entry)
     new_entry->primitive->data = malloc(entry->primitive->data_size);
     memcpy(new_entry->primitive->data, entry->primitive->data, entry->primitive->data_size);
     new_entry->primitive->data_size = entry->primitive->data_size;
-    new_entry->copy = gonc_entry_copy_primitive;
-    new_entry->destroy = gonc_entry_destroy_primitive;
+    new_entry->copy = gonc_primitive_copy_entry;
+    new_entry->destroy = gonc_primitive_destroy_entry;
 }
 
 void gonc_primitive_destroy_entry(struct gonc_entry* entry)

@@ -1,7 +1,6 @@
 #ifndef _GONC_ENTRY_H
 #define _GONC_ENTRY_H
 
-#include <stdlib.h>
 #include "gonc_primitive.h"
 
 struct gonc_entry

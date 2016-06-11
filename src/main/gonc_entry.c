@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "gonc_entry.h"
 #include "gonc_primitive.h"
 
 struct gonc_entry* gonc_entry_create_primitive(struct gonc_primitive* primitive)
