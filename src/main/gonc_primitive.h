@@ -9,6 +9,16 @@ struct gonc_primitive
 
 struct gonc_primitive* gonc_primitive_create(void* data, size_t data_size);
 
+static inline void* gonc_primitive_get_data(struct gonc_primitive* primitive)
+{
+    return primitive->data;
+}
+
+static inline size_t gonc_primitive_get_data_size(struct gonc_primitive* primitive)
+{
+    return primitive->data_size;
+}
+
 struct gonc_primitive* gonc_primitive_copy(struct gonc_primitive* primitive);
 
 void gonc_primitive_destroy(struct gonc_primitive* primitive);

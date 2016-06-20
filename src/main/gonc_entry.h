@@ -21,6 +21,16 @@ struct gonc_entry* gonc_entry_create_complex(void* complex,
                                                        struct gonc_entry* (*copy)(struct gonc_entry*),
                                                        void (*destroy)(struct gonc_entry*));
 
+static inline struct gonc_primitive* gonc_entry_get_primitive(struct gonc_entry* entry)
+{
+    return entry->primitive;
+}
+
+static inline void* gonc_entry_get_complex(struct gonc_entry* entry)
+{
+    return entry->complex;
+}
+
 static inline struct gonc_entry* gonc_entry_copy(struct gonc_entry* entry)
 {
     return entry->copy(entry);
