@@ -1,34 +1,29 @@
 #ifndef _GONC_ENTRY_H
 #define _GONC_ENTRY_H
 
+#include <stdlib.h>
 #include "gonc_primitive.h"
 
 struct gonc_entry
 {
-    union {
-        struct gonc_primitive* primitive;
-        void* complex;
-    };
-//    size_t (*get_size)(struct gonc_entry*);
+    void* data;
     struct gonc_entry* (*copy)(struct gonc_entry*);
     void (*destroy)(struct gonc_entry*);
+//    size_t (*get_size)(struct gonc_entry*);
 };
 
-
-struct gonc_entry* gonc_entry_create_primitive(struct gonc_primitive* primitive);
-
-struct gonc_entry* gonc_entry_create_complex(void* complex,
-                                                       struct gonc_entry* (*copy)(struct gonc_entry*),
-                                                       void (*destroy)(struct gonc_entry*));
-
-static inline struct gonc_primitive* gonc_entry_get_primitive(struct gonc_entry* entry)
+struct gonc_entry* gonc_entry_create(void* data, struct gonc_entry* (*copy)(struct gonc_entry*), void (*destroy)(struct gonc_entry*))
 {
-    return entry->primitive;
+    struct gonc_entry* entry = malloc(sizeof(struct gonc_entry));
+    entry->data = data;
+    entry->copy = copy;
+    entry->destroy = destroy;
+    return entry;
 }
 
-static inline void* gonc_entry_get_complex(struct gonc_entry* entry)
+static inline void* gonc_entry_get_data(struct gonc_entry* entry)
 {
-    return entry->complex;
+    return entry->data;
 }
 
 static inline struct gonc_entry* gonc_entry_copy(struct gonc_entry* entry)
