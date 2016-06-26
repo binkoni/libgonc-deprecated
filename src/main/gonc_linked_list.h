@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include "gonc_node.h"
+#include "gonc_entry.h"
 
 /**
 * @file gonc_linked_list.h
@@ -77,7 +78,7 @@ static inline size_t gonc_linked_list_get_size(struct gonc_linked_list* linked_l
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size);
+int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry);
 
 /**
 * @brief Inserts the data to specified index. Elements after the index will be pushed back.
@@ -89,7 +90,7 @@ int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, voi
 * @return 0 if no error, -1 if error. 
 */
 
-int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size);
+int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry);
 
 /**
 * @brief Inserts the data to index 0.
@@ -100,9 +101,9 @@ int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, 
 * @return 0 if no error, -1 if error.
 */
 
-static inline int gonc_linked_list_prepend(struct gonc_linked_list* linked_list, void* data, size_t data_size)
+static inline int gonc_linked_list_prepend(struct gonc_linked_list* linked_list, struct gonc_entry* entry)
 {
-    return gonc_linked_list_insert(linked_list, 0, data, data_size);
+    return gonc_linked_list_insert(linked_list, 0, entry);
 }
 
 /**
@@ -114,9 +115,9 @@ static inline int gonc_linked_list_prepend(struct gonc_linked_list* linked_list,
 * @return 0 if no error, -1 if error.
 */
 
-static inline int gonc_linked_list_append(struct gonc_linked_list* linked_list, void* data, size_t data_size)
+static inline int gonc_linked_list_append(struct gonc_linked_list* linked_list, struct gonc_entry* entry)
 {
-    return gonc_linked_list_insert(linked_list, linked_list->size, data, data_size);
+    return gonc_linked_list_insert(linked_list, linked_list->size, entry);
 }
 
 /**
@@ -129,7 +130,7 @@ static inline int gonc_linked_list_append(struct gonc_linked_list* linked_list, 
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size);
+struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index);
 
 /**
 * @brief Removes the data to specified index and copies the data to parmeter 'data'. Elements after the index will be pulled forth.
@@ -141,7 +142,7 @@ int gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, voi
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size);
+int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index);
 
 /**
 * @brief Destroys the linked_list and frees the memory.

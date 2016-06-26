@@ -23,24 +23,24 @@
 #include <string.h>
 #include "gonc_linked_list.h"
 #include "gonc_node.h"
+#include "gonc_entry.h"
 
-int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size)
+int gonc_linked_list_set(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry)
 {
     if(index >= linked_list->size || index < 0) return -1;
     struct gonc_node* current_node = linked_list->head;
     for(int i = 0; i < index; i++)
         current_node = current_node->next;
-    memcpy(current_node->data, data, data_size);
+    current_node->entry = entry;
     return 0;
 }
 
-int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size)
+int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry)
 {
     if(index > linked_list->size || index < 0) return -1;
 
     struct gonc_node* new_node = calloc(1, sizeof(struct gonc_node));
-    new_node->data = malloc(data_size);
-    memcpy(new_node->data, data, data_size);
+    new_node->entry = entry;
 
     if(linked_list->size == 0)
     {
@@ -91,17 +91,16 @@ int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, 
     return 0;
 }
 
-int gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size)
+struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry)
 {
     if(index >= linked_list->size || index < 0) return -1;
     struct gonc_node* current_node = linked_list->head;
     for(int i = 0; i < index; i++)
         current_node = current_node->next;
-    memcpy(data, current_node->data, data_size);
-    return 0;
+    return current_node->entry;
 }
 
-int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index, void* data, size_t data_size)
+int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
 {
     if(index >= linked_list->size || index < 0) return -1;
 
@@ -136,9 +135,7 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index, 
         next_node->previous = previous_node;
     }
 
-    if(data != NULL)
-        memcpy(data, target_node->data, data_size);
-    free(target_node->data);
+    gonc_entry_destroy(target_node->entry);
     free(target_node);
     --(linked_list->size);
     return 0;
