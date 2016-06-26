@@ -155,7 +155,7 @@ struct gonc_entry* gonc_linked_list_remove(struct gonc_linked_list* linked_list,
 * @return 0 if no error, -1 if error.
 */
 
-static inline void gonc_linked_list_delete(struct gonc_linked_list* linked_list, size_t index);
+static inline void gonc_linked_list_delete(struct gonc_linked_list* linked_list, size_t index)
 {
     gonc_entry_destroy(gonc_linked_list_remove(linked_list, index));
 }
@@ -169,7 +169,7 @@ static inline void gonc_linked_list_delete(struct gonc_linked_list* linked_list,
 static inline void gonc_linked_list_destroy(struct gonc_linked_list* linked_list)
 {
     while(linked_list->size > 0)
-        gonc_linked_list_destroy(linked_list, 0);
+        gonc_linked_list_delete(linked_list, 0);
     free(linked_list);
 }
 

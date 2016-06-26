@@ -91,9 +91,9 @@ int gonc_linked_list_insert(struct gonc_linked_list* linked_list, size_t index, 
     return 0;
 }
 
-struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index, struct gonc_entry* entry)
+struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, size_t index)
 {
-    if(index >= linked_list->size || index < 0) return -1;
+    if(index >= linked_list->size || index < 0) return NULL;
     struct gonc_node* current_node = linked_list->head;
     for(int i = 0; i < index; i++)
         current_node = current_node->next;
@@ -102,7 +102,7 @@ struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, si
 
 struct gonc_entry* gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
 {
-    if(index >= linked_list->size || index < 0) return -1;
+    if(index >= linked_list->size || index < 0) return NULL;
 
     struct gonc_node* target_node = linked_list->head;
     for(int i = 0; i < index; i++)

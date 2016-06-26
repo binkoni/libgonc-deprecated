@@ -25,11 +25,6 @@ void gonc_primitive_destroy(struct gonc_primitive* primitive)
     free(primitive);
 }
 
-struct gonc_entry* gonc_primitive_create_entry(void* value, size_t value_size)
-{
-    return gonc_entry_create(gonc_primitive_create(value, value_size), gonc_primitive_copy_entry, gonc_primitive_destroy_entry);
-}
-
 struct gonc_entry* gonc_primitive_copy_entry(struct gonc_entry* entry)
 {
     struct gonc_entry* new_entry = malloc(sizeof(struct gonc_entry));
