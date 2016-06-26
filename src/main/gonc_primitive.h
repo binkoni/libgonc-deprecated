@@ -3,20 +3,20 @@
 
 struct gonc_primitive
 {
-    void* data;
-    size_t data_size;
+    void* value;
+    size_t value_size;
 };
 
-struct gonc_primitive* gonc_primitive_create(void* data, size_t data_size);
+struct gonc_primitive* gonc_primitive_create(void* value, size_t value_size);
 
-static inline void* gonc_primitive_get_data(struct gonc_primitive* primitive)
+static inline void* gonc_primitive_get_value(struct gonc_primitive* primitive)
 {
-    return primitive->data;
+    return primitive->value;
 }
 
-static inline size_t gonc_primitive_get_data_size(struct gonc_primitive* primitive)
+static inline size_t gonc_primitive_get_value_size(struct gonc_primitive* primitive)
 {
-    return primitive->data_size;
+    return primitive->value_size;
 }
 
 struct gonc_primitive* gonc_primitive_copy(struct gonc_primitive* primitive);
