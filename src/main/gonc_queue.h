@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "gonc_singly_linked_node.h"
+#include "gonc_entry.h"
 
 /**
 * @file gonc_queue.h
@@ -79,7 +80,7 @@ static inline size_t gonc_queue_get_size(struct gonc_queue* queue)
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_queue_push(struct gonc_queue* queue, void* data, size_t data_size);
+int gonc_queue_push(struct gonc_queue* queue, struct gonc_entry* entry);
 
 /**
 * @brief Copies first data of the queue to parameter 'data'.
@@ -89,9 +90,9 @@ int gonc_queue_push(struct gonc_queue* queue, void* data, size_t data_size);
 * @param data_size Size of the data.
 */
 
-static inline void gonc_queue_peek(struct gonc_queue* queue, void* data, size_t data_size)
+static inline struct gonc_entry* gonc_queue_peek(struct gonc_queue* queue)
 {
-    memcpy(data, queue->front->data, data_size);
+    return queue->front->entry;
 }
 
 /**
@@ -103,7 +104,7 @@ static inline void gonc_queue_peek(struct gonc_queue* queue, void* data, size_t 
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_queue_pop(struct gonc_queue* queue, void* data, size_t data_size);
+struct gonc_entry* gonc_queue_pop(struct gonc_queue* queue);
 
 /**
 * @brief Destroys the queue.
@@ -111,6 +112,7 @@ int gonc_queue_pop(struct gonc_queue* queue, void* data, size_t data_size);
 * @param queue Pointer of the queue
 * @return 0 if no error, -1 if error.
 */
+
 int gonc_queue_destroy(struct gonc_queue* queue);
 
 #endif

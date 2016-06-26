@@ -100,7 +100,7 @@ struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, si
     return current_node->entry;
 }
 
-int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
+struct gonc_entry* gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
 {
     if(index >= linked_list->size || index < 0) return -1;
 
@@ -115,10 +115,8 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
     else if(index == 0)
     {
         struct gonc_node* next_node = target_node->next;
-
         next_node->previous = target_node->previous;
         target_node->previous->next = next_node;
-
         linked_list->head = next_node;
     }
     else if(index == linked_list->size - 1)
@@ -134,9 +132,8 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index)
         previous_node->next = next_node;
         next_node->previous = previous_node;
     }
-
-    gonc_entry_destroy(target_node->entry);
+    struct gonc_entry* target_entry = target_node->entry;
     free(target_node);
     --(linked_list->size);
-    return 0;
+    return target_entry;
 }

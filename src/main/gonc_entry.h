@@ -8,7 +8,6 @@ struct gonc_entry
     void* data;
     struct gonc_entry* (*copy)(struct gonc_entry*);
     void (*destroy)(struct gonc_entry*);
-//    size_t (*get_size)(struct gonc_entry*);
 };
 
 static inline struct gonc_entry* gonc_entry_create(void* data, struct gonc_entry* (*copy)(struct gonc_entry*), void (*destroy)(struct gonc_entry*))

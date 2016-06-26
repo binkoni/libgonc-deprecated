@@ -24,7 +24,7 @@
 #include "gonc_queue.h"
 #include "gonc_singly_linked_node.h"
 
-int gonc_queue_push(struct gonc_queue* queue, void* data, size_t data_size)
+int gonc_queue_push(struct gonc_queue* queue, struct gonc_entry* entry)
 {
     if(queue->size > 0)
     {
@@ -35,36 +35,35 @@ int gonc_queue_push(struct gonc_queue* queue, void* data, size_t data_size)
         queue->back = queue->front = calloc(1, sizeof(struct gonc_singly_linked_node));
     else return -1;
 
-    queue->back->data = malloc(data_size);
-    memcpy(queue->back->data, data, data_size);
+    queue->back->entry;
     ++(queue->size);
 
     return 0;
 }
 
-int gonc_queue_pop(struct gonc_queue* queue, void* data, size_t data_size)
+struct gonc_entry* gonc_queue_pop(struct gonc_queue* queue)
 {
     if(queue->size <= 0) return -1;
 
-    memcpy(data, queue->front->data, data_size);
-    struct gonc_singly_linked_node* old_front = queue->front;
+    struct gonc_singly_linked_node* target_front = queue->front;
+    struct gonc_entry* entry = target_front->entry;
     queue->front = queue->front->next;
-    free(old_front->data);
-    free(old_front);
+
+    free(target_front);
     --(queue->size);
 
-    return 0;
+    return entry;
 }
 
 int gonc_queue_destroy(struct gonc_queue* queue)
 {
-    struct gonc_singly_linked_node* old_front;
+    struct gonc_singly_linked_node* target_front;
     while(queue->size > 0)
     {
-        old_front = queue->front;
+        target_front = queue->front;
         queue->front = queue->front->next;
-        free(old_front->data);
-        free(old_front);
+        gonc_entry_destroy(target_front->entry);
+        free(target_front);
         --(queue->size);
     }
     free(queue);

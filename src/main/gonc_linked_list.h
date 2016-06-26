@@ -142,7 +142,23 @@ struct gonc_entry* gonc_linked_list_get(struct gonc_linked_list* linked_list, si
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index);
+struct gonc_entry* gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index);
+
+
+/**
+* @brief Removes the data to specified index and copies the data to parmeter 'data'. Elements after the index will be pulled forth.
+*
+* @param linked_list Pointer of the linked_list.
+* @param index Index which the data will be removed from.
+* @param data Pointer of the data or give it NULL if you don't want.
+* @param data_size Size of the output data.
+* @return 0 if no error, -1 if error.
+*/
+
+static inline void gonc_linked_list_delete(struct gonc_linked_list* linked_list, size_t index);
+{
+    gonc_entry_destroy(gonc_linked_list_remove(linked_list, index));
+}
 
 /**
 * @brief Destroys the linked_list and frees the memory.
@@ -152,8 +168,8 @@ int gonc_linked_list_remove(struct gonc_linked_list* linked_list, size_t index);
 
 static inline void gonc_linked_list_destroy(struct gonc_linked_list* linked_list)
 {
-    while(gonc_linked_list_remove(linked_list, 0, NULL, 0) == 0)
-        ;
+    while(linked_list->size > 0)
+        gonc_linked_list_destroy(linked_list, 0);
     free(linked_list);
 }
 

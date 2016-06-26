@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2016  Byeonggon Lee <gonny952@gmail.com>
+0;115;0c* Copyright (C) 2016  Byeonggon Lee <gonny952@gmail.com>
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "gonc_entry.h"
 
 /**
 * @file gonc_array_list.h
@@ -39,7 +40,7 @@
 
 struct gonc_array_list
 {
-    void** array; /**< Pointer of the array. */
+    struct gonc_entry** array; /**< Pointer of the array. */
     size_t capacity; /**< Size of allocated memory of the array */
     size_t size; /**< The number of nodes in the array */
 };
@@ -83,11 +84,10 @@ static inline size_t gonc_array_list_get_size(struct gonc_array_list* array_list
 * @param array_list Pointer of the array_list.
 * @param index Index which the data is placed at.
 * @param data Pointer of the data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size);
+int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, struct gonc_entry* entry);
 
 /**
 * @brief Inserts the data to specified index. Elements after the index will be pushed back.
@@ -95,24 +95,22 @@ int gonc_array_list_set(struct gonc_array_list* array_list, size_t index, void* 
 * @param array_list Pointer of the array_list.
 * @param index Index which the data will be placed to.
 * @param data Pointer of the data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size);
+int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, struct gonc_entry* entry);
 
 /**
 * @brief Inserts the data to index 0.
 *
 * @param array_list Pointer of the array_list.
 * @param data Pointer of the data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-static inline int gonc_array_list_prepend(struct gonc_array_list* array_list, void* data, size_t data_size)
+static inline int gonc_array_list_prepend(struct gonc_array_list* array_list, struct gonc_entry* entry)
 {
-    return gonc_array_list_insert(array_list, 0, data, data_size);
+    return gonc_array_list_insert(array_list, 0, entry);
 }
 
 /**
@@ -120,13 +118,12 @@ static inline int gonc_array_list_prepend(struct gonc_array_list* array_list, vo
 *
 * @param array_list Pointer of the array_list.
 * @param data Pointer of the data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-static inline int gonc_array_list_append(struct gonc_array_list* array_list, void* data, size_t data_size)
+static inline int gonc_array_list_append(struct gonc_array_list* array_list, struct gonc_entry* entry)
 {
-    return gonc_array_list_insert(array_list, array_list->size, data, data_size);
+    return gonc_array_list_insert(array_list, array_list->size, entry);
 }
 
 /**
@@ -135,11 +132,10 @@ static inline int gonc_array_list_append(struct gonc_array_list* array_list, voi
 * @param array_list Pointer of the array_list.
 * @param index Index which the data will be copied from.
 * @param data Pointer of the output data.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_array_list_get(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size);
+struct gonc_entry* gonc_array_list_get(struct gonc_array_list* array_list, size_t index);
 
 /**
 * @brief Removes the data to specified index and copies the data to parameter 'data'. Elements after the index will be pulled forth.
@@ -147,11 +143,24 @@ int gonc_array_list_get(struct gonc_array_list* array_list, size_t index, void* 
 * @param array_list Pointer of the array_list.
 * @param index Index which the data will be removed from.
 * @param data Pointer of the data or give it NULL if you don't want.
-* @param data_size Size of the data.
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_array_list_remove(struct gonc_array_list* array_list, size_t index, void* data, size_t data_size);
+int gonc_array_list_remove(struct gonc_array_list* array_list, size_t index);
+
+/**
+* @brief Removes the data to specified index and copies the data to parameter 'data'. Elements after the index will be pulled forth.
+*
+* @param array_list Pointer of the array_list.
+* @param index Index which the data will be removed from.
+* @param data Pointer of the data or give it NULL if you don't want.
+* @return 0 if no error, -1 if error.
+*/
+
+static inline void gonc_array_list_delete(struct gonc_array_list* array_list, size_t index)
+{
+    gonc_entry_destroy(gonc_array_list_remove(array_list, index));
+}
 
 /**
 * @brief Reduces the capcity of the array_list.
@@ -170,7 +179,7 @@ int gonc_array_list_compact(struct gonc_array_list* array_list);
 
 static inline void gonc_array_list_destroy(struct gonc_array_list* array_list)
 {
-    while(gonc_array_list_remove(array_list, array_list->size - 1, NULL, 0) == 0)
+    while(gonc_array_list_delete(array_list, array_list->size - 1, 0) == 0)
         ;
     free(array_list->array);
     free(array_list);

@@ -51,13 +51,13 @@ struct gonc_entry* gonc_stack_pop(struct gonc_stack* stack)
 {
     if(stack->size <= 0) return NULL;
 
-    struct gonc_node* old_top = stack->top;
+    struct gonc_node* target_top = stack->top;
     stack->top = stack->top->previous;
-    struct gonc_entry* old_entry = old_top->entry;
-    free(old_top);
+    struct gonc_entry* target_entry = target_top->entry;
+    free(target_top);
     --(stack->size);
     
-    return old_entry;
+    return target_entry;
 }
 
 void gonc_stack_destroy(struct gonc_stack* stack)
@@ -65,9 +65,9 @@ void gonc_stack_destroy(struct gonc_stack* stack)
     for(int i = 0; i < stack->size; i++)
     {
         gonc_entry_destroy(stack->top->entry);
-        struct gonc_node* old_top = stack->top;
+        struct gonc_node* target_top = stack->top;
         stack->top = stack->top->previous;
-        free(old_top);
+        free(target_top);
     }
     free(stack);
 }
