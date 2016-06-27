@@ -27,7 +27,7 @@
 struct gonc_array_list* gonc_array_list_create(size_t capacity)
 {
     struct gonc_array_list* array_list = malloc(sizeof(struct gonc_array_list));
-    array_list->array = calloc(capacity, sizeof(entry*));
+    array_list->array = calloc(capacity, sizeof(struct gonc_entry*));
     array_list->capacity = capacity;
     array_list->size = 0;
     return array_list;
@@ -62,13 +62,13 @@ int gonc_array_list_insert(struct gonc_array_list* array_list, size_t index, str
 
 struct gonc_entry* gonc_array_list_get(struct gonc_array_list* array_list, size_t index)
 {
-    if(index >= array_list->size || index < 0) return -1;
+    if(index >= array_list->size || index < 0) return NULL;
     return *(array_list->array + index);
 }
 
 struct gonc_entry* gonc_array_list_remove(struct gonc_array_list* array_list, size_t index)
 {
-    if(index >= array_list->size || index < 0) return -1;
+    if(index >= array_list->size || index < 0) return NULL;
     struct gonc_entry* target_entry = *(array_list->array + index);
     if(index < array_list->size - 1)
     {

@@ -146,7 +146,7 @@ struct gonc_entry* gonc_array_list_get(struct gonc_array_list* array_list, size_
 * @return 0 if no error, -1 if error.
 */
 
-int gonc_array_list_remove(struct gonc_array_list* array_list, size_t index);
+struct gonc_entry* gonc_array_list_remove(struct gonc_array_list* array_list, size_t index);
 
 /**
 * @brief Removes the data to specified index and copies the data to parameter 'data'. Elements after the index will be pulled forth.
@@ -179,8 +179,8 @@ int gonc_array_list_compact(struct gonc_array_list* array_list);
 
 static inline void gonc_array_list_destroy(struct gonc_array_list* array_list)
 {
-    while(gonc_array_list_delete(array_list, array_list->size - 1, 0) == 0)
-        ;
+    while(array_list->size > 0)
+        gonc_array_list_delete(array_list, array_list->size - 1);
     free(array_list->array);
     free(array_list);
 }
