@@ -28,14 +28,14 @@ int gonc_queue_push(struct gonc_queue* queue, struct gonc_entry* entry)
 {
     if(queue->size > 0)
     {
-        queue->back->next = malloc(sizeof(struct gonc_queue));
+        queue->back->next = malloc(sizeof(struct gonc_singly_linked_node));
         queue->back = queue->back->next;
     }
     else if(queue->size == 0)
         queue->back = queue->front = calloc(1, sizeof(struct gonc_singly_linked_node));
     else return -1;
 
-    queue->back->entry;
+    queue->back->entry = entry;
     ++(queue->size);
 
     return 0;
@@ -43,7 +43,7 @@ int gonc_queue_push(struct gonc_queue* queue, struct gonc_entry* entry)
 
 struct gonc_entry* gonc_queue_pop(struct gonc_queue* queue)
 {
-    if(queue->size <= 0) return -1;
+    if(queue->size <= 0) return NULL;
 
     struct gonc_singly_linked_node* target_front = queue->front;
     struct gonc_entry* entry = target_front->entry;
